@@ -1,0 +1,38 @@
+name: Cypress CI/CD - LoginFlowDemo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18   # Use 18 for compatibility with Cypress/Mochawesome
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run LoginFlowDemo.cy.js tests with Mochawesome
+        run: npx cypress run --spec "cypress/e2e/LoginFlowDemo.cy.js" --reporter mochawesome --reporter-options reportDir=cypress/reports/html,reportFilename=mochawesome,overwrite=true,html=true,json=true
+
+      - name: Upload Cypress artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
+            cypress/reports/html
