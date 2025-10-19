@@ -13,26 +13,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18   # Use 18 for compatibility with Cypress/Mochawesome
+          node-version: 18
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      - name: Run LoginFlowDemo.cy.js tests with Mochawesome
-        run: npx cypress run --spec "cypress/e2e/LoginFlowDemo.cy.js" --reporter mochawesome --reporter-options reportDir=cypress/reports/html,reportFilename=mochawesome,overwrite=true,html=true,json=true
+      # 4️⃣ Run Cypress tests with Mochawesome
+      - name: Run LoginFlowDemo.cy.js tests
+        run: npm run test
 
+      # 5️⃣ Merge reports (if multiple tests)
+      - name: Merge Mochawesome reports
+        run: npm run merge-reports
+
+      # 6️⃣ Generate HTML report
+      - name: Generate HTML report
+        run: npm run generate-report
+
+      # 7️⃣ Upload artifacts safely
       - name: Upload Cypress artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
           path: |
-            cypress/screenshots
-            cypress/videos
-            cypress/reports/html
+            cypress/screenshots/**/*
+            cypress/videos/**/*
+            cypress/reports/html/**/*
