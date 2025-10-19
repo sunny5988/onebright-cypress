@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    working-directory: ${{ github.workspace }}  # ensures all commands run in repo root
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Debug: print current working directory
+      # 2️⃣ Debug: confirm working directory
       - name: Print current working directory
         run: pwd
 
@@ -25,17 +29,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       # 4️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
       # 5️⃣ Run Cypress tests with Mochawesome
-      - name: Run LoginFlowDemo.cy.js tests
+      - name: Run Cypress tests
         run: npm run test
 
-      # 6️⃣ Merge reports (if multiple tests)
+      # 6️⃣ Merge Mochawesome reports
       - name: Merge Mochawesome reports
         run: npm run merge-reports
 
@@ -43,7 +47,7 @@ jobs:
       - name: Generate HTML report
         run: npm run generate-report
 
-      # 8️⃣ Upload artifacts safely (won't fail if folders are empty)
+      # 8️⃣ Upload artifacts safely (won’t fail if empty)
       - name: Upload Cypress artifacts
         if: always()
         uses: actions/upload-artifact@v4
