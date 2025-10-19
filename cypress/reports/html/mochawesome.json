@@ -1,0 +1,144 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-10-19T22:26:56.398Z",
+    "end": "2025-10-19T22:27:04.817Z",
+    "duration": 8419,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ea4b06a0-0f2f-4043-991a-dafc5d4b65e3",
+      "title": "",
+      "fullFile": "cypress\\e2e\\LoginFlowDemo.cy.js",
+      "file": "cypress\\e2e\\LoginFlowDemo.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f002b49c-aaf3-49b7-a981-b805b47a4515",
+          "title": "Login and Reset Password flow",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Login with invalid credentials",
+              "fullTitle": "Login and Reset Password flow Login with invalid credentials",
+              "timedOut": null,
+              "duration": 4506,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "loginPage.login('sushil', 'wrongpass');\nloginPage.getErrorMessage().should('be.visible').invoke('text').then(text => {\n  cy.log('Wrong Password message: ' + text);\n});",
+              "err": {},
+              "uuid": "7604a381-02fc-4d4e-8430-3de6801cdc00",
+              "parentUUID": "f002b49c-aaf3-49b7-a981-b805b47a4515",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Forget Password flow",
+              "fullTitle": "Login and Reset Password flow Forget Password flow",
+              "timedOut": null,
+              "duration": 2251,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('a', 'Forgot your password?').click();\nforgetPage.resetPassword('sushil', 'sunny5988@gmail.com', '7878');\nforgetPage.getResetPasswordMessage().should('be.visible').invoke('text').then(text => {\n  cy.log('Reset Password message: ' + text);\n});\nforgetPage.getGoToLoginBtn().click();",
+              "err": {},
+              "uuid": "c6c19137-3ba1-4ee2-b2b7-7a8ae78b3ab0",
+              "parentUUID": "f002b49c-aaf3-49b7-a981-b805b47a4515",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Login with fixture data",
+              "fullTitle": "Login and Reset Password flow Login with fixture data",
+              "timedOut": null,
+              "duration": 1443,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('user').then(users => {\n  cy.login(users.demologin.username, users.demologin.password);\n});",
+              "err": {},
+              "uuid": "05107dfe-9034-4c7a-9c1a-524e5039206d",
+              "parentUUID": "f002b49c-aaf3-49b7-a981-b805b47a4515",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7604a381-02fc-4d4e-8430-3de6801cdc00",
+            "c6c19137-3ba1-4ee2-b2b7-7a8ae78b3ab0",
+            "05107dfe-9034-4c7a-9c1a-524e5039206d"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 8200,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/html",
+        "reportFilename": "mochawesome",
+        "overwrite": true,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.0"
+    }
+  }
+}
