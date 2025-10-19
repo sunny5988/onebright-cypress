@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the code
+      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -29,27 +29,29 @@ jobs:
 
       # 4️⃣ Install dependencies
       - name: Install dependencies
-        run: |
-          cd $GITHUB_WORKSPACE
-          npm install
+        run: npm install
 
       # 5️⃣ Run Cypress tests with Mochawesome
       - name: Run Cypress tests
-        run: |
-          cd $GITHUB_WORKSPACE
-          npm run test
+        run: npm run test
 
       # 6️⃣ Merge Mochawesome reports
       - name: Merge Mochawesome reports
         run: |
-          cd $GITHUB_WORKSPACE
-          npm run merge-reports
+          if [ -f cypress/reports/html/mochawesome.json ]; then
+            npm run merge-reports
+          else
+            echo "No JSON report to merge."
+          fi
 
       # 7️⃣ Generate HTML report
       - name: Generate HTML report
         run: |
-          cd $GITHUB_WORKSPACE
-          npm run generate-report
+          if [ -f cypress/reports/html/mochawesome.json ]; then
+            npm run generate-report
+          else
+            echo "No JSON report to generate HTML from."
+          fi
 
       # 8️⃣ Upload artifacts safely
       - name: Upload Cypress artifacts
