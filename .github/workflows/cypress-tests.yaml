@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd $GITHUB_WORKSPACE
-          npm ci
+          npm install
 
       # 5️⃣ Run Cypress tests with Mochawesome
       - name: Run Cypress tests
