@@ -17,29 +17,33 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js
+      # 2️⃣ Debug: print current working directory
+      - name: Print current working directory
+        run: pwd
+
+      # 3️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
-      # 3️⃣ Install dependencies
+      # 4️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Run Cypress tests with Mochawesome
+      # 5️⃣ Run Cypress tests with Mochawesome
       - name: Run LoginFlowDemo.cy.js tests
         run: npm run test
 
-      # 5️⃣ Merge reports (if multiple tests)
+      # 6️⃣ Merge reports (if multiple tests)
       - name: Merge Mochawesome reports
         run: npm run merge-reports
 
-      # 6️⃣ Generate HTML report
+      # 7️⃣ Generate HTML report
       - name: Generate HTML report
         run: npm run generate-report
 
-      # 7️⃣ Upload artifacts safely
+      # 8️⃣ Upload artifacts safely (won't fail if folders are empty)
       - name: Upload Cypress artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -49,3 +53,4 @@ jobs:
             cypress/screenshots/**/*
             cypress/videos/**/*
             cypress/reports/html/**/*
+        continue-on-error: true
