@@ -29,7 +29,7 @@ describe ('Login and Reset Password flow', ()=> {
 
     it('Login with fixture data', () => {
         cy.fixture('user').then((users) => {
-            cy.login(users.demologin.username,users.demologin.password);
+            cy.login(users.demologin.username, users.demologin.password);
         });
     });
 })
