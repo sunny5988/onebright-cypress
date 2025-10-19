@@ -1,0 +1,12 @@
+{
+    "admin":{
+    "username": "Admin",
+    "password": "admin123"
+    },    
+
+    "demologin": {
+    "username": "sushil",
+    "password": "rahulshettyacademy"
+    }
+    
+}
